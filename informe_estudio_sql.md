@@ -346,6 +346,12 @@ GROUP BY Departamento
 ORDER BY Total_Empleados DESC;
 ```
 
+*Resultado Simulado:*
+| Departamento | Total_Empleados |
+| :--- | :--- |
+| 02 | 3 |
+| 01 | 2 |
+
 ### Ejemplo Integrador 2: Filtrado Previo y Promedios
 Queremos el salario promedio por ciudad, pero **solo** tomando en cuenta a los empleados que ganan más de 2000, ordenado alfabéticamente por el nombre de la ciudad.
 
@@ -359,6 +365,12 @@ GROUP BY Ciudad
 ORDER BY Ciudad ASC;
 ```
 
+*Resultado Simulado:*
+| Ciudad | Salario_Promedio |
+| :--- | :--- |
+| Cuzco | 2100 |
+| Lima | 3000 |
+
 ### Ejemplo Integrador 3: Gastos Máximos y Mínimos en un Departamento Específico
 Queremos conocer cuál es el salario más alto y el más bajo dentro del departamento '02', y cambiar el nombre de las columnas resultantes. (En este caso, al ser un solo departamento filtrado, no es estrictamente necesario el `GROUP BY`).
 
@@ -369,6 +381,11 @@ SELECT
 FROM Empleados
 WHERE Departamento = '02';
 ```
+
+*Resultado Simulado:*
+| Sueldo_Tope | Sueldo_Base |
+| :--- | :--- |
+| 3500 | 2100 |
 
 ### Ejemplo Integrador 4: Agrupación Múltiple con Filtro y Orden
 Queremos saber cuánto se gasta en salarios (Suma) separando a la gente por su `Departamento` y también por su `Ciudad`. Solo queremos considerar a los empleados cuyo apellido no sea 'Perez'. Queremos ordenar los resultados por la ciudad y luego por el total gastado de mayor a menor.
@@ -384,6 +401,14 @@ GROUP BY Departamento, Ciudad
 ORDER BY Ciudad ASC, Gasto_Total DESC;
 ```
 
+*Resultado Simulado:*
+| Departamento | Ciudad | Gasto_Total |
+| :--- | :--- | :--- |
+| 01 | Arequipa | 1800 |
+| 02 | Cuzco | 2100 |
+| 02 | Lima | 3500 |
+| 01 | Lima | 2500 |
+
 ### Ejemplo Integrador 5: El "Todo en Uno"
 Queremos un reporte que muestre el nombre del departamento, la cantidad de empleados válidos (que tengan ciudad registrada), y el salario promedio. Solo evaluaremos a aquellos con salario mayor o igual a 2000. Finalmente, ordenaremos por el salario promedio de mayor a menor.
 
@@ -397,3 +422,9 @@ WHERE Salario >= 2000
 GROUP BY Departamento
 ORDER BY Promedio_Ganancia DESC;
 ```
+
+*Resultado Simulado:*
+| Departamento | Empleados_Validos | Promedio_Ganancia |
+| :--- | :--- | :--- |
+| 02 | 3 | 2866.67 |
+| 01 | 1 | 2500 |
