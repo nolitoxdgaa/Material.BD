@@ -228,6 +228,21 @@ FROM Empleados;
 | :--- |
 | 3500 |
 
+### Diferencia clave entre `COUNT(columna)` y `COUNT(*)`
+
+Para entender la diferencia, imagina que agregamos un nuevo empleado a nuestra tabla base, pero aún no le hemos asignado un `Departamento` (es decir, su valor en esa columna es `NULL` o nulo). Si ahora tenemos 6 empleados en total, pero solo 5 tienen un departamento asignado:
+
+*   **`COUNT(*)`** devolverá **6**, porque cuenta *todas* las filas de la tabla sin importar si tienen datos nulos.
+*   **`COUNT(Departamento)`** devolverá **5**, porque *ignora* las filas donde la columna que indicaste está vacía (nula).
+
+```sql
+-- Cuenta absolutamente todas las filas (ej. 6)
+SELECT COUNT(*) AS Total_Registros FROM Empleados; 
+
+-- Cuenta solo las filas con datos en esa columna (ej. 5)
+SELECT COUNT(Departamento) AS Con_Departamento FROM Empleados;
+```
+
 **Combinación Potente: Funciones de agregado con `GROUP BY`**
 
 ```sql
