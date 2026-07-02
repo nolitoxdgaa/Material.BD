@@ -262,3 +262,68 @@ GROUP BY Departamento;
 | 02 | 8600 | 3 |
 
 *(Explicación del cálculo simulado: En el departamento 01 están Ana(2500) y Juan(1800), sumando 4300. En el departamento 02 están Luis(3000), Rosa(2100) y Jose(3500), sumando 8600).*
+
+---
+
+## 5. Ordenamiento de Datos: La Cláusula `ORDER BY`
+
+La cláusula `ORDER BY` se utiliza para ordenar el conjunto de resultados de una consulta basándose en una o más columnas. Por defecto, el ordenamiento es ascendente (de menor a mayor o de la A a la Z). 
+
+*   `ASC`: Ascendente (es el valor por defecto).
+*   `DESC`: Descendente (de mayor a menor o de la Z a la A).
+
+> [!TIP]
+> El `ORDER BY` siempre es la **última** instrucción en escribirse en una consulta SQL.
+
+### Ejemplos y Resultados Simulados
+
+**Consulta 1: Ordenamiento Ascendente (por defecto)**
+```sql
+-- Queremos ver a los empleados ordenados por su salario de menor a mayor
+SELECT Nombre, Salario
+FROM Empleados
+ORDER BY Salario ASC;
+```
+
+*Resultado Simulado:*
+| Nombre | Salario |
+| :--- | :--- |
+| Juan | 1800 |
+| Rosa | 2100 |
+| Ana | 2500 |
+| Luis | 3000 |
+| Jose | 3500 |
+
+**Consulta 2: Ordenamiento Descendente**
+```sql
+-- Queremos ver a los empleados ordenados por su salario de mayor a menor
+SELECT Nombre, Salario
+FROM Empleados
+ORDER BY Salario DESC;
+```
+
+*Resultado Simulado:*
+| Nombre | Salario |
+| :--- | :--- |
+| Jose | 3500 |
+| Luis | 3000 |
+| Ana | 2500 |
+| Rosa | 2100 |
+| Juan | 1800 |
+
+**Consulta 3: Ordenamiento por múltiples columnas**
+```sql
+-- Ordenamos primero por Departamento (Ascendente) y luego por Salario (Descendente)
+SELECT Nombre, Departamento, Salario
+FROM Empleados
+ORDER BY Departamento ASC, Salario DESC;
+```
+
+*Resultado Simulado:*
+| Nombre | Departamento | Salario |
+| :--- | :--- | :--- |
+| Ana | 01 | 2500 |
+| Juan | 01 | 1800 |
+| Jose | 02 | 3500 |
+| Luis | 02 | 3000 |
+| Rosa | 02 | 2100 |
