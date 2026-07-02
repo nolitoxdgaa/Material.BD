@@ -327,3 +327,73 @@ ORDER BY Departamento ASC, Salario DESC;
 | Jose | 02 | 3500 |
 | Luis | 02 | 3000 |
 | Rosa | 02 | 2100 |
+
+---
+
+## 6. Práctica Final: Combinando Todo
+
+Para finalizar esta guía, aquí tienes 5 ejemplos de consultas que combinan `SELECT`, `WHERE`, `GROUP BY`, Funciones de Agregado y `ORDER BY`.
+
+### Ejemplo Integrador 1: Conteo y Ordenamiento Básico
+Queremos saber cuántos empleados hay en cada departamento, ordenados desde el departamento que tiene más empleados hasta el que tiene menos.
+
+```sql
+SELECT 
+    Departamento, 
+    COUNT(*) AS Total_Empleados
+FROM Empleados
+GROUP BY Departamento
+ORDER BY Total_Empleados DESC;
+```
+
+### Ejemplo Integrador 2: Filtrado Previo y Promedios
+Queremos el salario promedio por ciudad, pero **solo** tomando en cuenta a los empleados que ganan más de 2000, ordenado alfabéticamente por el nombre de la ciudad.
+
+```sql
+SELECT 
+    Ciudad, 
+    AVG(Salario) AS Salario_Promedio
+FROM Empleados
+WHERE Salario > 2000
+GROUP BY Ciudad
+ORDER BY Ciudad ASC;
+```
+
+### Ejemplo Integrador 3: Gastos Máximos y Mínimos en un Departamento Específico
+Queremos conocer cuál es el salario más alto y el más bajo dentro del departamento '02', y cambiar el nombre de las columnas resultantes. (En este caso, al ser un solo departamento filtrado, no es estrictamente necesario el `GROUP BY`).
+
+```sql
+SELECT 
+    MAX(Salario) AS Sueldo_Tope, 
+    MIN(Salario) AS Sueldo_Base
+FROM Empleados
+WHERE Departamento = '02';
+```
+
+### Ejemplo Integrador 4: Agrupación Múltiple con Filtro y Orden
+Queremos saber cuánto se gasta en salarios (Suma) separando a la gente por su `Departamento` y también por su `Ciudad`. Solo queremos considerar a los empleados cuyo apellido no sea 'Perez'. Queremos ordenar los resultados por la ciudad y luego por el total gastado de mayor a menor.
+
+```sql
+SELECT 
+    Departamento, 
+    Ciudad, 
+    SUM(Salario) AS Gasto_Total
+FROM Empleados
+WHERE Apellido != 'Perez'
+GROUP BY Departamento, Ciudad
+ORDER BY Ciudad ASC, Gasto_Total DESC;
+```
+
+### Ejemplo Integrador 5: El "Todo en Uno"
+Queremos un reporte que muestre el nombre del departamento, la cantidad de empleados válidos (que tengan ciudad registrada), y el salario promedio. Solo evaluaremos a aquellos con salario mayor o igual a 2000. Finalmente, ordenaremos por el salario promedio de mayor a menor.
+
+```sql
+SELECT 
+    Departamento, 
+    COUNT(Ciudad) AS Empleados_Validos, 
+    AVG(Salario) AS Promedio_Ganancia
+FROM Empleados
+WHERE Salario >= 2000
+GROUP BY Departamento
+ORDER BY Promedio_Ganancia DESC;
+```
