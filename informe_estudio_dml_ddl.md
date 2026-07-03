@@ -11,6 +11,15 @@ El DDL se encarga de definir o modificar la **estructura** de los objetos de la 
 ### A. Crear Tablas (`CREATE TABLE`)
 Se usa para crear una nueva tabla desde cero, especificando el nombre de sus columnas, sus tipos de datos y restricciones (como llaves primarias o foráneas).
 
+**Estructura Base (Esqueleto):**
+```sql
+CREATE TABLE nombre_tabla (
+    columna1 tipo_dato,
+    columna2 tipo_dato,
+    ...
+);
+```
+
 ```sql
 -- Creando la tabla de Marcas
 CREATE TABLE Marcas (
@@ -33,6 +42,12 @@ CREATE TABLE Dulces (
 ### B. Modificar Estructuras (`ALTER TABLE`)
 Se utiliza cuando la tabla ya existe y necesitas cambiar su estructura (por ejemplo, agregar una columna nueva o cambiar el tipo de dato).
 
+**Estructura Base (Esqueleto para agregar columna):**
+```sql
+ALTER TABLE nombre_tabla 
+ADD nombre_columna tipo_dato;
+```
+
 ```sql
 -- Agregando una nueva columna llamada 'Comentarios' a la tabla Dulces
 ALTER TABLE Dulces 
@@ -41,6 +56,11 @@ ADD Comentarios VARCHAR(100);
 
 ### C. Eliminar Estructuras (`DROP TABLE`)
 Destruye por completo una tabla y todos los datos que tenga adentro. **Es una operación irreversible y muy peligrosa en entornos de producción.**
+
+**Estructura Base (Esqueleto):**
+```sql
+DROP TABLE nombre_tabla;
+```
 
 ```sql
 -- Borrando una tabla llamada 'Dotacion' que ya no nos sirve
@@ -59,6 +79,12 @@ El DML es lo que usamos en el día a día para gestionar el **contenido** (los r
 ### A. Insertar Datos (`INSERT INTO`)
 Sirve para agregar nuevas filas de información a una tabla.
 
+**Estructura Base (Esqueleto):**
+```sql
+INSERT INTO nombre_tabla (columna1, columna2, ...)
+VALUES (valor1, valor2, ...);
+```
+
 ```sql
 -- Insertando registros múltiples en la tabla Marcas
 INSERT INTO Marcas (Clave, Nombre) 
@@ -71,6 +97,13 @@ VALUES (4001, 'Gussi', 'Galleta rellena de chocolate', 'Piezas', 2.50, 1);
 
 ### B. Actualizar Datos (`UPDATE`)
 Permite modificar información que ya existe en una o varias filas.
+
+**Estructura Base (Esqueleto):**
+```sql
+UPDATE nombre_tabla
+SET columna = nuevo_valor
+WHERE condicion;
+```
 
 **Ejemplo y Explicación:**
 Imaginemos que el dulce "Lunetas" (Clave 4003) tenía como descripción "Chocolate confitado" y queremos cambiarla a "Dulce macizo", tal como lo solicita el laboratorio 4.
@@ -85,6 +118,12 @@ WHERE Clave = 4003;
 
 ### C. Eliminar Datos (`DELETE`)
 Borra filas completas de la tabla según la condición dada en el WHERE.
+
+**Estructura Base (Esqueleto):**
+```sql
+DELETE FROM nombre_tabla
+WHERE condicion;
+```
 
 **Ejemplo y Explicación:**
 Queremos eliminar de nuestra base de datos todos los dulces que pertenezcan a la marca con clave '002' (Ricolino).
