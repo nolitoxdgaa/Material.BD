@@ -265,7 +265,37 @@ GROUP BY Departamento;
 
 ---
 
-## 5. Ordenamiento de Datos: La Cláusula `ORDER BY`
+## 5. Filtrando Grupos: La Cláusula `HAVING`
+
+La cláusula `HAVING` se utiliza para filtrar los resultados de una consulta **después** de que los datos han sido agrupados por `GROUP BY`. 
+
+A diferencia de `WHERE` (que filtra filas individuales antes de agruparlas), el `HAVING` está diseñado específicamente para trabajar con las funciones de agregado y evaluar los grupos ya formados.
+
+> [!IMPORTANT]
+> **No puedes usar funciones de agregado dentro de un `WHERE`.** Si necesitas filtrar basándote en una suma, promedio o conteo de un grupo, obligatoriamente debes usar `HAVING`.
+
+### Ejemplos y Resultados Simulados
+
+**Consulta 1: Filtrar grupos basándonos en un conteo**
+```sql
+-- Queremos saber cuántos empleados hay en cada departamento,
+-- pero SOLO queremos ver los departamentos que tengan MÁS de 2 empleados.
+SELECT Departamento, COUNT(*) AS Total_Empleados
+FROM Empleados
+GROUP BY Departamento
+HAVING COUNT(*) > 2; 
+```
+
+*Resultado Simulado:*
+| Departamento | Total_Empleados |
+| :--- | :--- |
+| 02 | 3 |
+
+*(Explicación: Aunque el departamento '01' tiene 2 empleados, es descartado porque la condición pide estrictamente MAYOR a 2).*
+
+---
+
+## 6. Ordenamiento de Datos: La Cláusula `ORDER BY`
 
 La cláusula `ORDER BY` se utiliza para ordenar el conjunto de resultados de una consulta basándose en una o más columnas. Por defecto, el ordenamiento es ascendente (de menor a mayor o de la A a la Z). 
 
@@ -330,7 +360,7 @@ ORDER BY Departamento ASC, Salario DESC;
 
 ---
 
-## 6. Práctica Final: Combinando Todo
+## 7. Práctica Final: Combinando Todo
 
 Para finalizar esta guía, aquí tienes 5 ejemplos de consultas que combinan `SELECT`, `WHERE`, `GROUP BY`, Funciones de Agregado y `ORDER BY`.
 
